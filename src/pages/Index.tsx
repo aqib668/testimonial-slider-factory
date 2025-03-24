@@ -149,7 +149,7 @@ const Index = () => {
         </div>
       </div>
       
-      <style jsx>{`
+      <style>{`
         .testimonial-container {
           min-height: 100vh;
           display: flex;
