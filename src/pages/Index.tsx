@@ -205,6 +205,8 @@ const Index = () => {
         
         .testimonial-item {
           display: none;
+          min-height: 240px; /* Set a fixed minimum height for testimonial items */
+          position: relative;
         }
         
         .testimonial-item.active {
@@ -217,6 +219,11 @@ const Index = () => {
           line-height: 1.6;
           margin-bottom: 1.5rem;
           max-width: 90%;
+        }
+        
+        .testimonial-author {
+          position: absolute;
+          bottom: 0;
         }
         
         .testimonial-author h4 {
@@ -337,6 +344,10 @@ const Index = () => {
           
           .testimonial-text {
             font-size: 1rem;
+          }
+          
+          .testimonial-item {
+            min-height: 280px; /* Slightly taller on mobile for better text fitting */
           }
         }
       `}</style>
