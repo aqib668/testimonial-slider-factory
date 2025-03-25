@@ -7,14 +7,14 @@ const TESTIMONIALS = [
     text: "I was definitely thrilled to visit your store and would love to take time and visit it again. I was fascinated with the large collection of women's clothing that you have in store, and the various kinds of dresses are really lucrative and affordable on my pockets.",
     name: "Olive Yew",
     title: "Fashion Model",
-    image: "/lovable-uploads/5d666cfc-89b7-4fb9-bdbe-d9e4fa483022.png"
+    image: "/lovable-uploads/4d5df809-7a9c-42d3-b2d3-1db3076e5219.png"
   },
   {
     id: 2,
     text: "The selection of clothing is outstanding. The staff was incredibly helpful and made my shopping experience so pleasant. I'll definitely be returning and recommending your store to all my friends.",
     name: "Maya Johnson",
     title: "Interior Designer",
-    image: "/lovable-uploads/39441fa8-0ac3-4417-935b-864df7f9c617.png"
+    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop"
   },
   {
     id: 3,

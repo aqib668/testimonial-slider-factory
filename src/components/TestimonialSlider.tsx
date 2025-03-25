@@ -1,5 +1,12 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import { Card } from "@/components/ui/card";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { cn } from "@/lib/utils";
@@ -30,7 +37,7 @@ export const TestimonialSlider = ({ testimonials }: TestimonialSliderProps) => {
     loop: true,
   });
   
-  useEffect(() => {
+  React.useEffect(() => {
     if (!textCarouselApi || !imageCarouselApi) return;
     
     const onSelect = () => {
@@ -85,22 +92,22 @@ export const TestimonialSlider = ({ testimonials }: TestimonialSliderProps) => {
                       <p className="text-gray-500 text-sm">{testimonial.title}</p>
                     </div>
                     
-                    <div className="mt-8 flex items-center">
-                      <span className="text-sm text-[#1A2942] font-bold">
-                        {String(activeIndex + 1).padStart(2, '0')}
+                    <div className="flex items-center mt-6">
+                      <span className={cn("text-sm text-[#1A2942] font-medium", { "hidden": isMobile })}>
+                        {String(testimonial.id).padStart(2, '0')}
                       </span>
-                      <div className="w-12 mx-4">
-                        <div className="h-[1px] bg-gray-300"></div>
+                      <div className="flex-1 mx-2">
+                        <div className="h-[1px] bg-gray-300 w-16"></div>
                       </div>
-                      <div className="flex space-x-4">
-                        {testimonials.map((_, i) => (
-                          <span
-                            key={i}
-                            className={cn(
-                              "block h-[1px] w-8 bg-gray-300",
-                              { "bg-[#1A2942]": i === activeIndex }
-                            )}
-                          />
+                      <div className="flex space-x-1 text-sm">
+                        {testimonials.map((t) => (
+                          <span 
+                            key={t.id} 
+                            className={t.id === testimonial.id ? "text-[#1A2942] font-bold" : "text-gray-300"}
+                          >
+                            {String(t.id).padStart(2, '0')}
+                            {t.id !== testimonials.length && <span className="text-gray-300 mx-1"></span>}
+                          </span>
                         ))}
                       </div>
                     </div>
@@ -112,55 +119,62 @@ export const TestimonialSlider = ({ testimonials }: TestimonialSliderProps) => {
         </div>
       </div>
       
-      <div className="testimonial-images relative">
+      <div className="testimonial-images">
         <div className="overflow-hidden" ref={imageCarouselRef}>
           <div className="flex">
-            {testimonials.map((_, i) => (
+            {testimonials.map((testimonial, i) => (
               <div 
-                key={i} 
+                key={testimonial.id} 
                 className="min-w-0 flex-grow-0 flex-shrink-0 basis-full"
               >
                 <div className="grid grid-cols-3 gap-4">
-                  {testimonials.map((testimonial, index) => {
-                    const isActive = (index === 0 && i === 0) || 
-                                    (index === 1 && i === 1) || 
-                                    (index === 2 && i === 2);
-                    
-                    return (
-                      <Card 
-                        key={testimonial.id} 
-                        className={cn(
-                          "overflow-hidden rounded-xl",
-                          isActive ? "opacity-100" : "opacity-40"
-                        )}
-                      >
-                        <AspectRatio ratio={3/4}>
-                          <img 
-                            src={testimonial.image} 
-                            alt={testimonial.name}
-                            className="object-cover w-full h-full"
-                          />
-                        </AspectRatio>
-                      </Card>
-                    );
-                  })}
+                  <Card className={cn("overflow-hidden rounded-xl", 
+                    i === 0 ? "col-span-1" : "opacity-40")}>
+                    <AspectRatio ratio={3/4}>
+                      <img 
+                        src={testimonials[0].image} 
+                        alt={testimonials[0].name}
+                        className="object-cover w-full h-full"
+                      />
+                    </AspectRatio>
+                  </Card>
+                  <Card className={cn("overflow-hidden rounded-xl", 
+                    i === 1 ? "col-span-1" : "opacity-40")}>
+                    <AspectRatio ratio={3/4}>
+                      <img 
+                        src={testimonials.length > 1 ? testimonials[1].image : "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop"}
+                        alt={testimonials.length > 1 ? testimonials[1].name : "Testimonial"}
+                        className="object-cover w-full h-full"
+                      />
+                    </AspectRatio>
+                  </Card>
+                  <Card className={cn("overflow-hidden rounded-xl", 
+                    i === 2 ? "col-span-1" : "opacity-40")}>
+                    <AspectRatio ratio={3/4}>
+                      <img 
+                        src={testimonials.length > 2 ? testimonials[2].image : "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1587&auto=format&fit=crop"}
+                        alt={testimonials.length > 2 ? testimonials[2].name : "Testimonial"}
+                        className="object-cover w-full h-full"
+                      />
+                    </AspectRatio>
+                  </Card>
                 </div>
               </div>
             ))}
           </div>
         </div>
         
-        <div className="flex absolute bottom-0 right-0 space-x-4 mt-8">
+        <div className="flex space-x-2 mt-6">
           <button 
             onClick={handlePrev}
-            className="h-10 w-10 rounded-none flex items-center justify-center text-[#1A2942] border border-gray-200 hover:bg-gray-100 transition-colors"
+            className="h-10 w-10 rounded-full flex items-center justify-center text-[#1A2942] hover:bg-gray-100 transition-colors"
             aria-label="Previous testimonial"
           >
             ←
           </button>
           <button 
             onClick={handleNext}
-            className="h-10 w-10 rounded-none flex items-center justify-center text-[#1A2942] border border-gray-200 hover:bg-gray-100 transition-colors"
+            className="h-10 w-10 rounded-full flex items-center justify-center text-[#1A2942] hover:bg-gray-100 transition-colors"
             aria-label="Next testimonial"
           >
             →
